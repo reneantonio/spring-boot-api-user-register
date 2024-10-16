@@ -4,6 +4,7 @@ import cl.challenge.api.models.User;
 import cl.challenge.api.models.UserRequest;
 import cl.challenge.api.repositories.UserRepository;
 import cl.challenge.api.services.UserService;
+import cl.challenge.api.config.JwtUtil;
 import cl.challenge.api.exceptions.EmailAlreadyExistsException;
 import cl.challenge.api.exceptions.InvalidEmailFormatException;
 import cl.challenge.api.exceptions.InvalidPasswordException;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 import java.util.regex.Pattern;
 
 @Service
@@ -38,6 +38,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Override
     public User registerUser(UserRequest userRequest) {
@@ -65,9 +68,11 @@ public class UserServiceImpl implements UserService {
         user.setCreated(LocalDateTime.now());
         user.setModified(LocalDateTime.now());
         user.setLastLogin(LocalDateTime.now());
-        user.setToken(UUID.randomUUID().toString());
         user.setActive(true);
-
+        // Generar el token JWT
+        String token = jwtUtil.generateToken(user.getEmail());
+        // Añadimos el token al usuario
+        user.setToken(token);  
         return userRepository.save(user);
     }
 
