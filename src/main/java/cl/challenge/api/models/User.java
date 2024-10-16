@@ -23,9 +23,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "\"user\"")  // Escapa el nombre de la tabla con comillas dobles
@@ -36,9 +33,6 @@ public class User implements UserDetails{
     
     private String name;
     
-    @Email(message = "El correo debe tener un formato válido")
-    @NotBlank(message = "El correo es obligatorio")
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@mi-dominio\\.com$", message = "El correo debe pertenecer al dominio 'mi-dominio.com'")
     @Column(unique = true)
     private String email;
     
