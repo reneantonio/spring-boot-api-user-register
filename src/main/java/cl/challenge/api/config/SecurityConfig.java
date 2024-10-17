@@ -19,7 +19,11 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable) // Deshabilita CSRF
             .authorizeHttpRequests(request -> 
                 request
-                    .requestMatchers("/api/register", "/api/register/**").permitAll() // Permite acceso público a /api/register
+                    .requestMatchers("/api/register",
+                                                "/api/register/**",
+                                                "/v3/api-docs/**",
+                                                "/swagger-ui/**"
+                                                ).permitAll() // Permite acceso público a /api/register
                     .anyRequest().authenticated() // Cualquier otra solicitud requiere autenticación
             )
             .exceptionHandling(handling -> 

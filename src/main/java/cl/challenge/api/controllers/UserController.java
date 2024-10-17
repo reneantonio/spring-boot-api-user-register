@@ -3,6 +3,7 @@ package cl.challenge.api.controllers;
 import cl.challenge.api.models.User;
 import cl.challenge.api.models.UserRequest;
 import cl.challenge.api.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class UserController {
 
     // Endpoint público para registrar un usuario
     @PostMapping("/register")
+    @Operation(summary = "Registrar un nuevo usuario", description = "Crea un nuevo usuario y lo devuelve con sus ids y token")
     public ResponseEntity<?> registerUser(@RequestBody @Valid UserRequest userRequest) {
         try {
             User user = userService.registerUser(userRequest);
