@@ -13,7 +13,8 @@ Esta API expone endpoints para registrar usuarios y sus telefonos, valida correo
 7. [Base de Datos en Memoria](#base-de-datos-en-memoria)
 8. [Solución de Problemas](#solución-de-problemas)
 9. [Diagrama de la Solución](#diagrama-de-la-solución)
-
+10. [Pruebas Unitarias e Integradas](#pruebas-unitarias-e-integradas)
+11. [Documentación de la API con Swagger (OpenAPI 3)](#documentación-de-la-api-con-swagger-openapi-3)
 ## Descripción
 
 La API permite crear usuarios, validar correos electrónicos y contraseñas que cumplan con ciertos requisitos de seguridad. Al registrar un usuario, se genera un **token JWT** que se devuelve en la respuesta. Esta API utiliza una base de datos en memoria **H2** para almacenamiento temporal, lo que significa que los datos no persisten una vez que la aplicación se detiene.
@@ -40,8 +41,8 @@ Sigue los siguientes pasos para instalar y ejecutar la aplicación:
 
 1. **Clonar el repositorio:**
     ```bash
-    git clone https://github.com/tu-repositorio.git
-    cd tu-repositorio
+    git clone https://github.com/reneantonio/spring-boot-api-user-register.git
+    cd spring-boot-api-user-register
     ```
 
 2. **Compilar la aplicación:**
@@ -186,3 +187,47 @@ Puedes acceder a la consola de H2 en `http://localhost:8080/h2-console`.
 El siguiente diagrama representa el flujo del registro de usuario en la API:
 
 ![Diagrama del Proceso de Registro](diagram-user-registration.svg)
+
+## Pruebas Unitarias e Integradas
+
+Las pruebas del proyecto se dividen en **pruebas unitarias** y **pruebas de integración simulada**. Estas pruebas garantizan que las unidades y los componentes del sistema se comporten correctamente.
+
+### Ejecución de Pruebas
+
+Para ejecutar todas las pruebas unitarias e integradas del proyecto, utiliza el siguiente comando:
+
+```bash
+mvn test
+```
+
+Este comando ejecutará todas las pruebas definidas en el proyecto, incluyendo las pruebas de servicios y controladores.
+
+### Tipos de Pruebas
+
+1. **Pruebas Unitarias (Unit Tests)**:
+   Estas pruebas aseguran que las clases individuales (por ejemplo, servicios) se comporten de manera correcta. Utilice **Mockito** para simular dependencias y aislar la unidad bajo prueba.
+
+2. **Pruebas de Integración Simulada (Simulated Integration Tests)**:
+   Las pruebas de integración simulada verifican la interacción entre los controladores y servicios simulando solicitudes HTTP usando **MockMvc** y **Mockito**.
+
+## Documentación de la API con Swagger (OpenAPI 3)
+
+Este proyecto usa **Swagger 3** (OpenAPI 3) para generar documentación interactiva de la API REST.
+
+### Acceso a Swagger UI
+
+Una vez que la aplicación esté corriendo, puedes acceder a **Swagger UI** para ver la documentación de la API e interactuar con los endpoints directamente desde el navegador.
+
+- **URL para Swagger UI**: 
+  ``` 
+  http://localhost:8080/swagger-ui/index.html
+  ```
+
+### Acceso a la Documentación en Formato OpenAPI 3 (JSON)
+
+Si deseas obtener la documentación de la API en formato **JSON**, puedes hacerlo en la siguiente URL:
+
+- **URL para la documentación en JSON**: 
+  ```
+  http://localhost:8080/v3/api-docs
+  ```
